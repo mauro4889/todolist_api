@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  
+  firstname String
+  lastname  String
+  password String @default("")
+
+  tasks Task[]
+  finishedTasks FinishedTask[]
+  cancelTasks CancelTask[]
+}
+
+
+model Task {
+  id Int @id @default(autoincrement())
+
+  createdBy User @relation(fields: [userId], references: [id])
+  userId   String
+
+  task String
+  description String
+  createdTask DateTime @default(now())
+}
+
+model FinishedTask{
+  id String @id @default(uuid())
+
+  createdBy User @relation(fields: [userId], references: [id])
+  userId   String
+
+  task String
+  description String
+  finishTask DateTime @default(now())
+}
+
+model CancelTask {
+  id String @id @default(uuid())
+
+  createdBy User @relation(fields: [userId], references: [id])
+  userId   String
+
+  task String
+  cancelTask DateTime @default(now())
+}
