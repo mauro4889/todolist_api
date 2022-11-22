@@ -11,4 +11,4 @@ router.get('/:id', UsersController.getOneById)
 router.patch('/:id', UsersController.update)
 router.delete('/:id', UsersController.delete)
 
-export { router as userRouter }
+export default router

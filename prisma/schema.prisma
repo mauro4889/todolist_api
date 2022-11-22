@@ -13,12 +13,14 @@ datasource db {
 model User {
   id String @id @default(uuid())
 
-  email String @unique
+  email    String @unique
   password String @default("")
 
-  profile Profile ? @relation()
-}
+  profile Profile? @relation()
 
+  tasks      Task[]
+  cancelTask CancelTask[]
+}
 
 model Profile {
   id String @id @default(uuid())
@@ -26,34 +28,33 @@ model Profile {
   firstname String
   lastname  String
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique
-  tasks Task[]
-  cancelTask CancelTask[]
 }
 
 model Task {
   id Int @id @default(autoincrement())
 
-  createdBy Profile @relation(fields: [profileId], references: [id])
-  profileId   String
+  createdBy User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 
-  task String
+  task        String
   description String
-  status TaskStatus @default(PENDING)
-  createdTask DateTime @default(now())
+  status      TaskStatus @default(PENDING)
+  createdTask DateTime   @default(now())
 }
 
 model CancelTask {
   id String @id @default(uuid())
 
-  createdBy Profile @relation(fields: [profileId], references: [id])
-  profileId   String
-  task String
+  createdBy  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  
+  task       String
   cancelTask DateTime @default(now())
 }
 
-enum TaskStatus{
+enum TaskStatus {
   PENDING
   FINISHED
   CANCEL

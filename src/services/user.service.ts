@@ -28,7 +28,11 @@ export class UsersService {
 
     static async getAll() {
         try {
-            const data = await prisma.user.findMany({})
+            const data = await prisma.user.findMany({
+                include:{
+                    tasks: true
+                }
+            })
             return { success: true, data }
         } catch (error) {
             console.log({ error });

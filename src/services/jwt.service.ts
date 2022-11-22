@@ -4,7 +4,7 @@ export class JWTService {
     constructor() { }
 
     public static generate(payload: any) {
-        return jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: '5m' });
+        return jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: '24h' });
     }
 
     public static verify(token: string) {
