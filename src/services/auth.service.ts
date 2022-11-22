@@ -8,7 +8,7 @@ export class AuthService {
 
     static async register(data: any) {
         try {
-            const { email, firstname, lastname, password } = data
+            const { profile, email, password } = data
 
             const candidate = await UsersService.getOneByEmail(email)
             if (candidate.data) {
@@ -17,7 +17,7 @@ export class AuthService {
 
             const salt = await genSalt(10)
             const encrypted = await hash(password, salt)
-            const { user } = await UsersService.create({ email, firstname, lastname, password: encrypted })
+            const { user } = await UsersService.create({ profile, email, password: encrypted })
 
             return user
 

@@ -20,5 +20,5 @@ server.use('/users', userRouter)
 
 
 server.listen(process.env.PORT, ()=>{
-    console.log('Funcionando OK')
+    console.log(`Funcionando en el puerto ${process.env.PORT}`)
 })

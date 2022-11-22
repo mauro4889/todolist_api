@@ -4,15 +4,19 @@ import { prisma } from ".."
 export class UsersService {
     constructor() { }
 
-    static async create(user: any) {
+    static async create({ email, password = '', profile }: any) {
         try {
-            const { email, firstname, lastname, password } = user
+            const { firstname, lastname } = profile
             const created = await prisma.user.create({
                 data: {
                     email,
-                    firstname,
-                    lastname,
                     password,
+                    profile: {
+                        create: {
+                            firstname,
+                            lastname
+                        }
+                    }
                 }
             })
             return { success: true, user: created }
@@ -55,6 +59,37 @@ export class UsersService {
         } catch (error) {
             console.log({ error });
             return { success: false, error: 'Hubo un error' }
+        }
+    }
+
+    static async update({ id}: any, data: any) {
+        try {
+            const user = this.getOneById(id)
+            if (!user) {
+                throw Error()
+            }
+
+            const modified = await prisma.user.update({
+                where: { id },
+                data: { ...data }
+            })
+
+            return { success: true, modified }
+        } catch (error) {
+            console.log({ error });
+            return { success: false, error: 'Hubo un error' };
+        }
+    }
+
+    static async delete(id: any) {
+        try {
+
+            const deleteUser = await prisma.user.delete({ where: { id }, include: { profile: true } })
+
+            return { success: true, deleteUser };
+        } catch (error) {
+            console.log({ error });
+            return { success: false, error: 'Hubo un error' };
         }
     }
 }
