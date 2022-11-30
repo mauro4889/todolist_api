@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { TasksController } from "../controller/tasks.controller";
+import { authenticate } from "../middlewares/authentication";
 
 
 
 const router = Router()
+router.use(authenticate)
 
 router.post('/', TasksController.create)
 router.get('/', TasksController.getAll)

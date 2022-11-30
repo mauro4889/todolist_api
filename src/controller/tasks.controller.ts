@@ -35,7 +35,7 @@ export class TasksController {
     static async update(req: Request, res: Response){
         const {id} = req.params
 
-        const update = await TasksService.update(id, req.body)
+        const update = await TasksService.update(+id, req.body)
 
         res.status(update.success ? 200 : 400).send(update)
     }

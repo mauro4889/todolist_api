@@ -42,16 +42,16 @@ export class TasksService {
             const data = await prisma.task.findUnique({
                 where: {id}
             })
+            return {success: true, data}
         } catch (error) {
             return { sucess: false, error: 'Hubo un error' };
         }
     }
 
-    static async update({id}: any, data: any){
+    static async update(id: number, data: any){
         try {
-            const user = this.getOneById(id)
-            
-            if(!user){
+            const task = this.getOneById(id)
+            if(!task){
                 throw Error()
             }
 
@@ -62,6 +62,7 @@ export class TasksService {
 
             return {success: true, modified}
         } catch (error) {
+            console.log(error)
             return { sucess: false, error: 'Hubo un error' };
         }
     }

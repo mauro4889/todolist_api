@@ -10,13 +10,13 @@ export const authenticate = async (req: any, res: Response, next: NextFunction)=
         const {authorization} = req.headers
 
         if(!authorization || !authorization.startsWith('Bearer')){
-            throw 'error'
+            throw 'No tenes Bearer'
         }
 
         const {1: token} = authorization.split(' ')
 
         if(!token){
-            throw 'error'
+            throw 'Token incorrecto'
         }
 
         const {id} = JWTService.verify(token)
