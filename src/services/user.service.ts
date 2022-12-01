@@ -1,4 +1,5 @@
 import { prisma } from ".."
+import { UserRoles } from "../entities/Users/roles.enum";
 
 
 export class UsersService {
@@ -11,6 +12,7 @@ export class UsersService {
                 data: {
                     email,
                     password,
+                    role: UserRoles.USER,
                     profile: {
                         create: {
                             firstname,

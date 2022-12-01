@@ -7,12 +7,13 @@ export class AuthController {
     constructor() { }
 
     static async register(req: Request, res: Response) {
-        const { email, password, profile} = req.body
+        const { email, password, role, profile} = req.body
         const { firstname, lastname} = profile
 
         const created = await AuthService.register({
             email,
             password,
+            role,
             profile:{
                 firstname,
                 lastname

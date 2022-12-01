@@ -7,6 +7,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes'
 import tasksRoutes from './routes/tasks.routes'
+import permissionRoutes from './routes/permissions.routes'
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ server.use(cors());
 server.use('/auth', authRoutes)
 server.use('/users', userRoutes)
 server.use('/tasks', tasksRoutes)
+server.use('/permission', permissionRoutes)
 
 
 server.listen(process.env.PORT, ()=>{
