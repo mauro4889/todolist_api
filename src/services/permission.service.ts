@@ -7,7 +7,7 @@ export class PermissionService {
     static async create(name: string) {
         try {
 
-            const created = await prisma.permission.create({
+            const created = await prisma.permissions.create({
                 data: {
                     name,
                 }
@@ -22,7 +22,7 @@ export class PermissionService {
 
     static async getAll() {
         try {
-            const data = await prisma.permission.findMany()
+            const data = await prisma.permissions.findMany()
             return { success: true, data }
         } catch (error) {
             return { success: false, error: 'Hubo un error' };
@@ -31,7 +31,7 @@ export class PermissionService {
 
     static async assingPermission({ permission, user }: any) {
         try {
-            const assigned = prisma.user.update({
+            const assigned = await prisma.user.update({
                 where: { id: user },
                 data: {
                     permission: {
@@ -41,7 +41,7 @@ export class PermissionService {
                     }
                 }
             })
-
+            
             return { success: true, assigned }
         } catch (error) {
             console.log(error)

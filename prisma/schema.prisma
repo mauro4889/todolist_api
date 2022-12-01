@@ -15,7 +15,7 @@ enum Role {
   USER
 }
 
-model Permission {
+model Permissions {
   name      String   @id @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,7 +34,7 @@ model User {
 
   tasks      Task[]
   cancelTask CancelTask[]
-  permission Permission[]
+  permission Permissions[]
 }
 
 model Profile {

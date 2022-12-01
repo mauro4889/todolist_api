@@ -23,7 +23,7 @@ export class UsersService {
             })
             return { success: true, user: created }
         } catch (error) {
-            console.log({ error });
+            
             return { sucess: false, error: 'Hubo un error' };
         }
     }
@@ -32,7 +32,8 @@ export class UsersService {
         try {
             const data = await prisma.user.findMany({
                 include:{
-                    tasks: true
+                    tasks: true,
+                    permission: true
                 }
             })
             return { success: true, data }
