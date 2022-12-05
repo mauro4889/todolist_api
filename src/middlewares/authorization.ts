@@ -4,7 +4,7 @@ import { NextFunction, Response } from "express";
 export const havePermission = (permission: string[]) =>(req: any, res: Response, next: NextFunction)=>{
     try {
         const {user} = req
-
+        console.log(user)
         const userPermissions = user.permission.map((permission: any)=> permission.name)
 
         const canContinue = permission.every((permission)=>{

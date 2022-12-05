@@ -46,7 +46,10 @@ export class UsersService {
     static async getOneById(id: any) {
         try {
             const data = await prisma.user.findUnique({
-                where: { id }
+                where: { id },
+                include:{
+                    permission: true
+                }
             })
             return { success: true, data }
         } catch (error) {
@@ -57,7 +60,10 @@ export class UsersService {
     static async getOneByEmail(email: any) {
         try {
             const data = await prisma.user.findUnique({
-                where: { email }
+                where: { email },
+                include:{
+                    permission: true
+                }
             })
             if (!data) {
                 throw data;

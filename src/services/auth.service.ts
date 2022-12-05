@@ -26,31 +26,39 @@ export class AuthService {
         }
     }
 
-    static async login({email, password}: any){
-        const {data} = await UsersService.getOneByEmail(email)
+    static async login({ email, password }: any) {
+        try {
+            const { data } = await UsersService.getOneByEmail(email)
 
-        if(!data){
-            throw data
-        }
-
-        const isValid = await compare(password, data.password)
-
-        if(!isValid){
-            throw isValid
-        }
-
-        const {id} = data
-        const token = JWTService.generate({
-            id,
-            email
-        })
-
-        return {
-            success: true,
-            token,
-            data:{
-                email
+            if (!data) {
+                throw data
             }
+
+            const isValid = await compare(password, data.password)
+
+            if (!isValid) {
+                throw isValid
+            }
+
+            const { id, permission } = data
+            const token = JWTService.generate({
+                id,
+                email,
+                permission
+            })
+            console.log(data)
+            return {
+                success: true,
+                token,
+                data: {
+                    email,
+                    permission
+                }
+            }
+            
+        } catch (error) {
+            console.log(error)
+            return{error}
         }
 
     }
