@@ -23,7 +23,7 @@ export const authenticate = async (req: any, res: Response, next: NextFunction)=
 
         const {data} = await UsersService.getOneById(id)
         req.user = data
-        console.log(data)
+
         next()
         
     } catch (error) {

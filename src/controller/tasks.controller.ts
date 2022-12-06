@@ -5,14 +5,16 @@ import { TasksService } from "../services/tasks.service";
 export class TasksController {
     constructor() {}
 
-    static async create(req: Request, res: Response){
-        const {task, description, createdBy, date} = req.body
+    static async create(req: any, res: Response){
+        const {task, description,  date} = req.body
+
+        const { user } = req;
 
         const created = await TasksService.create({
             task,
             description,
             date,
-            createdBy
+            user: user.id
         })
 
         res.status(created.success ? 200 : 400).send(created)

@@ -4,16 +4,19 @@ import { prisma } from ".."
 export class TasksService {
     constructor(){}
 
-    static async create({task, description, status, createdTask, createdBy}: any){
+    static async create({task, description, status, createdTask, user}: any){
         try {
             const created = await prisma.task.create({
+                include: {
+					createdBy: true,
+				},
                 data:{
                     task,
                     description,
                     status,
                     createdTask,
                     createdBy:{
-                        connect:{id: createdBy}
+                        connect:{id: user}
                     }
                 }
             })

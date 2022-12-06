@@ -46,7 +46,7 @@ export class AuthService {
                 email,
                 permission
             })
-            console.log(data)
+            
             return {
                 success: true,
                 token,
