@@ -40,4 +40,10 @@ export class AuthController {
 
     }
 
+    public static async validateEmail(req: Request, res: Response) {
+		const { token } = req.params;
+		const html = await AuthService.validateEmail(token);
+		res.send(html);
+	}
+
 }

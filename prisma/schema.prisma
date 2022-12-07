@@ -29,6 +29,7 @@ model User {
   email    String @unique
   password String @default("")
   role Role
+  validated Boolean @default(false)
 
   profile Profile? @relation()
 

@@ -48,7 +48,8 @@ export class UsersService {
             const data = await prisma.user.findUnique({
                 where: { id },
                 include:{
-                    permission: true
+                    permission: true,
+                    profile: true
                 }
             })
             return { success: true, data }
